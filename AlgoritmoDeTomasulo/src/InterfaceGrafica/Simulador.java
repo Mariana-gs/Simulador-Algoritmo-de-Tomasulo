@@ -14,6 +14,10 @@ public class Simulador {
 	
 	public static EstacaoInstrucao[] carregar;
 	
+	
+	/**
+	 * Abre o Arquivo e Cria Fila de Instruções
+	 */
 	public static void preencherFilaInstrucoes() {
 		int id;
 		

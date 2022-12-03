@@ -24,7 +24,7 @@ import javax.swing.JFileChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class janela {
+public class Janela {
 
 	private JFrame janela;
 	private JTable table1;
@@ -49,7 +49,7 @@ public class janela {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					janela window = new janela();
+					Janela window = new Janela();
 					window.janela.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -61,7 +61,7 @@ public class janela {
 	/**
 	 * Create the application.
 	 */
-	public janela() {
+	public Janela() {
 		initialize();
 	}
 
@@ -72,7 +72,7 @@ public class janela {
 		janela = new JFrame();
 		janela.setTitle("Simulador - Algoritmo de Tomasulo");
 		janela.getContentPane().setBackground(new Color(255, 255, 255));
-		janela.setIconImage(Toolkit.getDefaultToolkit().getImage(janela.class.getResource("/Icones/2292038.png")));
+		janela.setIconImage(Toolkit.getDefaultToolkit().getImage(Janela.class.getResource("/Icones/2292038.png")));
 		janela.setBounds(25, 25, 900, 665);
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

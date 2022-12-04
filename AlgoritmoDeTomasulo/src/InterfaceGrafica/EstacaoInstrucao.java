@@ -7,8 +7,15 @@ public class EstacaoInstrucao {
 	public static String execute;
 	public static String writeResult;
 	
+	EstacaoInstrucao(){
+		instruction = new Instrucao();
+	}
+	
 	public String getInstruction() {
-		String aux = instruction.getInstrucao();
+		String aux = "";
+		if(instruction != null) {
+			aux = instruction.getInstrucao();
+		}
 		return aux;
 	}
 	

@@ -30,11 +30,15 @@ public class Janela {
 	private JTable table1;
 	private JTable table2;
 	private JTable table3;
+	private static Simulador simulador;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		simulador = new Simulador();
+		
 		try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -115,18 +119,20 @@ public class Janela {
 				
 				int valor = arquivo.showOpenDialog(null);
 				
+				//Iniciar Simulador
 				if (valor == JFileChooser.APPROVE_OPTION) {
-					Simulador.arquivo = arquivo.getSelectedFile();
-					Simulador.inicializarSimulador();
+					simulador.arquivo = arquivo.getSelectedFile();
+					simulador.inicializarSimulador();
 					
 					table1.setModel(new DefaultTableModel(
 		        			new Object[][] { // ERRO AQUI
-		        				{Simulador.carregar[0].getInstruction(), Simulador.carregar[0].getIssue(), Simulador.carregar[0].getExecute(), Simulador.carregar[0].getWriteResult()},
-		        				{Simulador.carregar[1].getInstruction(), Simulador.carregar[1].getIssue(), Simulador.carregar[1].getExecute(), Simulador.carregar[1].getWriteResult()},
+		        				{simulador.carregar[0].getInstruction(), simulador.carregar[0].getIssue(), simulador.carregar[0].getExecute(), simulador.carregar[0].getWriteResult()},
+		        				{simulador.carregar[1].getInstruction(), simulador.carregar[1].getIssue(), simulador.carregar[1].getExecute(), simulador.carregar[1].getWriteResult()},
+		        				{simulador.carregar[2].getInstruction(), simulador.carregar[2].getIssue(), simulador.carregar[2].getExecute(), simulador.carregar[2].getWriteResult()},
 		        			},
 		        			new String[] {
 		        				"Instruction", "Issue", "Execute", "Write result"
-		        			}
+		        			} 
 		        		));
 				}
 			}

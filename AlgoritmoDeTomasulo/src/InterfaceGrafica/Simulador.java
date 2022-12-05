@@ -1,58 +1,93 @@
 package InterfaceGrafica;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Simulador {
 	
 	// VARIÁVEIS
-	public static String path;
+	public String path;
 	
-    public static LinkedList<LinkedList<String>> filaInstrucoes;
+	/*
+	 * Um vetor de instrucoes, cada posicao 
+	 * do vetor se refere a um tipo de instrucao e
+	 * tem uma lista de string (instrucoes)
+	 */
 	
-	public static EstacaoInstrucao[] carregarTabela1;
+    public Instrucoes[] filaInstrucoes;
+    
+	public EstacaoInstrucao[] carregarTabela1;
+	
+	
+	public void inserirInstrucao(int id, String instrucao){
+        //inserir no vetor se não existirem
+        if(filaInstrucoes[id] == null){
+            Instrucoes instrucoes = new Instrucoes();
+            filaInstrucoes[id] = instrucoes;
+        }
+        
+        filaInstrucoes[id].inserir(instrucao);
+        
+    }
 	
 	
 	
 	// MÉTODOS 
-	public static void chamarFilaInstrucoes() {
+	public void chamarFilaInstrucoes() {
+		
+		//Variáveis
         String[] linhaSeparada;
-        
-        int id;
         String instrucao;
-        
+        int id;
         int numeroInstrucoes;
         int numeroTiposInstrucoes;
 
+        //Leitura e tratamento do Arquivo + Atualizar Atributos
         Manipulador arquivo = new Manipulador(path);
-
         linhaSeparada = arquivo.read();
         numeroInstrucoes = Integer.parseInt(linhaSeparada[0]);
-        
         linhaSeparada = arquivo.read();
         numeroTiposInstrucoes = Integer.parseInt(linhaSeparada[0]);
         
-        Instrucoes inst = new Instrucoes(numeroInstrucoes, numeroTiposInstrucoes);
-        inst.construirFilaInstrucoes();
         
-        while ((linhaSeparada = arquivo.read()) != null) {
+        filaInstrucoes = new Instrucoes[numeroTiposInstrucoes+1];
+        
+        
+        linhaSeparada = arquivo.read();
+        while (linhaSeparada != null) { //para todas as linhas do arquivo
         	id = Integer.parseInt(linhaSeparada[0]);
         	instrucao = linhaSeparada[1];
-
-        	inst.addInstrucao(id, instrucao);
+        	
+        	inserirInstrucao(id, instrucao);
+        	
+        	 System.out.println("filaInstrucoes posicao: " + id);
+        	
+        	 /*
+        	 if(filaInstrucoes[id] != null) {
+        		 filaInstrucoes[id].Mostrar();
+        	 }*/
+        	linhaSeparada = arquivo.read();
+        }
+        
+        
+        for(int j = 0; j < numeroTiposInstrucoes; j++) {
+        	if(filaInstrucoes[j] != null) {
+        		filaInstrucoes[j].Mostrar();
+        	}
+        	
         }
 
-        filaInstrucoes = inst.getFilaInstrucoes();
-        inst.mostrar();
-
+        
         arquivo.close();
 	}
 	
 	//OUTROS MÉTODOS
 	
-	public static void inicializarSimulador() {
+	public void inicializarSimulador() {
 		chamarFilaInstrucoes();
 		
+		/*
 		carregarTabela1 = new EstacaoInstrucao[filaInstrucoes.size()];
 		
 		for(int i = 0; i < filaInstrucoes.size(); i ++) {
@@ -68,7 +103,7 @@ public class Simulador {
 			carregarTabela1[i].setIssue("-");
 			carregarTabela1[i].setExecute("-");
 			carregarTabela1[i].setWriteResult("-");
-		}
+		}*/
 	}
 }
 

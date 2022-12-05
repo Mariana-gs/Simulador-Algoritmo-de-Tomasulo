@@ -31,11 +31,15 @@ public class Janela {
 	private JTable table1;
 	private JTable table2;
 	private JTable table3;
+	private static Simulador simulador;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		simulador = new Simulador();
+		
 		try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -118,18 +122,18 @@ public class Janela {
 				
 				if (valor == JFileChooser.APPROVE_OPTION) {
 					File arquivoSelecionado = arquivo.getSelectedFile();
-					Simulador.path = arquivoSelecionado.getAbsolutePath();
-					Simulador.inicializarSimulador();
+					simulador.path = arquivoSelecionado.getAbsolutePath();
+					simulador.inicializarSimulador();
 					
 					
 					table1.setModel(new DefaultTableModel(
 		        			new Object[][] { // ERRO AQUI
-		        				{Simulador.filaInstrucoes.get(0).get(0), null, null, null},
-		        				{Simulador.filaInstrucoes.get(0).get(1), null, null, null},
-		        				{Simulador.filaInstrucoes.get(1).get(0), null, null, null},
-		        				{Simulador.filaInstrucoes.get(2).get(0), null, null, null},
-		        				{Simulador.filaInstrucoes.get(3).get(0), null, null, null},
-		        				{Simulador.filaInstrucoes.get(4).get(0), null, null, null},
+		        				{simulador.filaInstrucoes[1].tiposInstrucao.get(0), null, null, null},
+		        				{simulador.filaInstrucoes[1].tiposInstrucao.get(1), null, null, null},
+		        				{simulador.filaInstrucoes[2].tiposInstrucao.get(0), null, null, null},
+		        				{simulador.filaInstrucoes[3].tiposInstrucao.get(0), null, null, null},
+		        				{simulador.filaInstrucoes[4].tiposInstrucao.get(0), null, null, null},
+		        				{simulador.filaInstrucoes[5].tiposInstrucao.get(0), null, null, null},
 		        			},
 		        			new String[] {
 		        				"Instruction", "Issue", "Execute", "Write result"

@@ -2,24 +2,16 @@ package InterfaceGrafica;
 
 public class EstacaoInstrucao {
 	
-	public static Instrucao instruction;
+	public static String instruction;
 	public static String issue;
 	public static String execute;
 	public static String writeResult;
 	
-	EstacaoInstrucao(){
-		instruction = new Instrucao();
-	}
-	
 	public String getInstruction() {
-		String aux = "";
-		if(instruction != null) {
-			aux = instruction.getInstrucao();
-		}
-		return aux;
+		return instruction;
 	}
 	
-	public void setInstruction(Instrucao instruction) { 
+	public void setInstruction(String instruction) { 
 		this.instruction = instruction;	
 	}
 	

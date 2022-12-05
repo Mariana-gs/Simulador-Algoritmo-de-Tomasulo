@@ -1,144 +1,76 @@
 package InterfaceGrafica;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Simulador {
+	
+	// VARIÁVEIS
+	public static String path;
+	
+    public static LinkedList<LinkedList<String>> filaInstrucoes;
+	
+	public static EstacaoInstrucao[] carregarTabela1;
+	
+	
+	
+	// MÉTODOS 
+	public static void chamarFilaInstrucoes() {
+        String[] linhaSeparada;
+        
+        int id;
+        String instrucao;
+        
+        int numeroInstrucoes;
+        int numeroTiposInstrucoes;
 
-	public  File arquivo;
-	private int qtdInstrucoes;
-	public  EstacaoInstrucao[] carregar;
-	public Instrucao[] filaInstrucoes; 
-	
-	
-	/**
-	 * Abre o Arquivo e Cria Fila de Instruções
-	 */
-	public void preencherFilaInstrucoes() {
-		
-		String linha;
-		String[] linhaSeparada;
-		int i = 0;
-		int id;
-		
-		
-		try {
-			FileReader arq = new FileReader(arquivo);
-	    	BufferedReader lerArq = new BufferedReader(arq);
-	    	
-	    	linha = lerArq.readLine();
-	    	this.qtdInstrucoes = Integer.parseInt(linha);
-	    	
-	    	
-			//filaInstrucoes é um atributo da classe
-	    	this.filaInstrucoes = new Instrucao[this.qtdInstrucoes];
-	    	
-	    	linha = lerArq.readLine();
-	    	while(i < this.qtdInstrucoes){
-	    		
-	    		linhaSeparada = linha.split(" ");
-	    		id = Integer.parseInt(linhaSeparada[0]);
-	    		
-	    		this.filaInstrucoes[i] = new Instrucao(linhaSeparada[1], id);
-	    		
-	    		
-	    		//Aqui ele preenche o vetor certo
-	    		 
-	    		System.out.println("filaInstrucoes: " + i);
-	    		System.out.println(this.filaInstrucoes[i].getInstrucao());
-	    		System.out.println(this.filaInstrucoes[i].getId());
-	    		System.out.println("");
-	    		
-	    		i++;
-	    		linha = lerArq.readLine();
-	    	}
-	    	
-	    	//i = 0;
-	    	arq.close();
-	    	
-		}catch (IOException e) {
-			
-			System.out.print("Erro na abertura do arquivo!");
-		}
-		
-		
+        Manipulador arquivo = new Manipulador(path);
+
+        linhaSeparada = arquivo.read();
+        numeroInstrucoes = Integer.parseInt(linhaSeparada[0]);
+        
+        linhaSeparada = arquivo.read();
+        numeroTiposInstrucoes = Integer.parseInt(linhaSeparada[0]);
+        
+        Instrucoes inst = new Instrucoes(numeroInstrucoes, numeroTiposInstrucoes);
+        inst.construirFilaInstrucoes();
+        
+        while ((linhaSeparada = arquivo.read()) != null) {
+        	id = Integer.parseInt(linhaSeparada[0]);
+        	instrucao = linhaSeparada[1];
+
+        	inst.addInstrucao(id, instrucao);
+        }
+
+        filaInstrucoes = inst.getFilaInstrucoes();
+        inst.mostrar();
+
+        arquivo.close();
 	}
 	
+	//OUTROS MÉTODOS
 	
-	public void inicializarSimulador() {
+	public static void inicializarSimulador() {
+		chamarFilaInstrucoes();
 		
-		preencherFilaInstrucoes();
+		carregarTabela1 = new EstacaoInstrucao[filaInstrucoes.size()];
 		
-		
-		//Quando volta para cá os valores estão errados
-		 
-				System.out.println("filaInstrucoes: " + 0);
-				System.out.println(this.filaInstrucoes[0].getInstrucao());
-				System.out.println(this.filaInstrucoes[0].getId());
-				System.out.println("");
+		for(int i = 0; i < filaInstrucoes.size(); i ++) {
+			carregarTabela1[i] = new EstacaoInstrucao();
+			if(filaInstrucoes.get(i).size() != 0) {
+				int j = 0;
 				
-				System.out.println("filaInstrucoes: " + 1);
-				System.out.println(this.filaInstrucoes[1].getInstrucao());
-				System.out.println(this.filaInstrucoes[1].getId());
-				System.out.println("");
+				carregarTabela1[i].setInstruction(filaInstrucoes.get(i).get(j));
+				System.out.println(filaInstrucoes.get(i).get(j));
 				
-				System.out.println("filaInstrucoes: " + 2);
-				System.out.println(this.filaInstrucoes[2].getInstrucao());
-				System.out.println(this.filaInstrucoes[2].getId());
-				System.out.println("");
-				
-				System.out.println("filaInstrucoes: " + 3);
-				System.out.println(this.filaInstrucoes[3].getInstrucao());
-				System.out.println(this.filaInstrucoes[3].getId());
-				System.out.println("");
-				
-				System.out.println("filaInstrucoes: " + 4);
-				System.out.println(this.filaInstrucoes[4].getInstrucao());
-				System.out.println(this.filaInstrucoes[4].getId());
-				System.out.println("");
-				
-				System.out.println("filaInstrucoes: " + 4);
-				System.out.println(this.filaInstrucoes[4].getInstrucao());
-				System.out.println(this.filaInstrucoes[4].getId());
-				System.out.println("");
-				
-		
-		
-		
-		
-		carregar = new EstacaoInstrucao[this.qtdInstrucoes];
-		
-		for(int i = 0; i < this.qtdInstrucoes; i ++) {
-			carregar[i] = new EstacaoInstrucao();
-			carregar[i].setInstruction(this.filaInstrucoes[i]);
-			carregar[i].setIssue("-");
-			carregar[i].setExecute("-");
-			carregar[i].setWriteResult("-");
+				j++;
+			}
+			carregarTabela1[i].setIssue("-");
+			carregarTabela1[i].setExecute("-");
+			carregarTabela1[i].setWriteResult("-");
 		}
-		
-		
-		//quando coloca para imprimir filaInstrucoes[] embaixo desse for ele fica vazio
-		
-		 
-		
 	}
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
 }
-
-
-
-
 
 
 

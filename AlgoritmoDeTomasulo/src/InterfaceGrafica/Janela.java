@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 
 public class Janela {
@@ -30,15 +31,11 @@ public class Janela {
 	private JTable table1;
 	private JTable table2;
 	private JTable table3;
-	private static Simulador simulador;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		
-		simulador = new Simulador();
-		
 		try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -119,20 +116,24 @@ public class Janela {
 				
 				int valor = arquivo.showOpenDialog(null);
 				
-				//Iniciar Simulador
 				if (valor == JFileChooser.APPROVE_OPTION) {
-					simulador.arquivo = arquivo.getSelectedFile();
-					simulador.inicializarSimulador();
+					File arquivoSelecionado = arquivo.getSelectedFile();
+					Simulador.path = arquivoSelecionado.getAbsolutePath();
+					Simulador.inicializarSimulador();
+					
 					
 					table1.setModel(new DefaultTableModel(
 		        			new Object[][] { // ERRO AQUI
-		        				{simulador.carregar[0].getInstruction(), simulador.carregar[0].getIssue(), simulador.carregar[0].getExecute(), simulador.carregar[0].getWriteResult()},
-		        				{simulador.carregar[1].getInstruction(), simulador.carregar[1].getIssue(), simulador.carregar[1].getExecute(), simulador.carregar[1].getWriteResult()},
-		        				{simulador.carregar[2].getInstruction(), simulador.carregar[2].getIssue(), simulador.carregar[2].getExecute(), simulador.carregar[2].getWriteResult()},
+		        				{Simulador.filaInstrucoes.get(0).get(0), null, null, null},
+		        				{Simulador.filaInstrucoes.get(0).get(1), null, null, null},
+		        				{Simulador.filaInstrucoes.get(1).get(0), null, null, null},
+		        				{Simulador.filaInstrucoes.get(2).get(0), null, null, null},
+		        				{Simulador.filaInstrucoes.get(3).get(0), null, null, null},
+		        				{Simulador.filaInstrucoes.get(4).get(0), null, null, null},
 		        			},
 		        			new String[] {
 		        				"Instruction", "Issue", "Execute", "Write result"
-		        			} 
+		        			}
 		        		));
 				}
 			}

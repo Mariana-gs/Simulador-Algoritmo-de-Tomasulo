@@ -2,57 +2,30 @@ package InterfaceGrafica;
 
 import java.util.LinkedList;
 
-
 class Instrucoes {
     
     public int numeroInstrucoes;
     public int numeroTiposInstrucoes;
-    public static LinkedList<TiposInstrucoes> filaInstrucoes;
-    
-    
-    public static LinkedList<TiposInstrucoes> getFilaInstrucoes() {
-    	return filaInstrucoes;
-    }
-    
+    public static LinkedList<LinkedList<String>> filaInstrucoes;
     
     Instrucoes(int numeroInstrucoes, int numeroTiposInstrucoes) {
         this.numeroInstrucoes = numeroInstrucoes;
         this.numeroTiposInstrucoes = numeroTiposInstrucoes;
-        filaInstrucoes = new LinkedList<TiposInstrucoes>();
-        TiposInstrucoes tipos;
-		tipos = new TiposInstrucoes();
-		filaInstrucoes.add(tipos);
+        filaInstrucoes = new LinkedList<LinkedList<String>>();
     }
     
+    public static LinkedList<LinkedList<String>> getFilaInstrucoes() {
+    	return filaInstrucoes;
+    }
 
-    /*public void construirFilaInstrucoes() {
-    	TiposInstrucoes tipos;
-    	
+    public void construirFilaInstrucoes() {
         for (int i = 0; i <= numeroTiposInstrucoes; i ++) {
-        	tipos = new TiposInstrucoes();
-        	filaInstrucoes.add(tipos);
-        	//DEBUG
-        	System.out.println("tamanho da fila de instruções na posicao "+ i + ":" + filaInstrucoes.get(i).getTiposInstrucoes().size());
+        	filaInstrucoes.add(new LinkedList<String>());
         }
-        //DEBUG
-        System.out.println("tamanho da fila de instruções: " + filaInstrucoes.size());
-        
-    }*/
+    }
 
     public void addInstrucao(int id, String instrucao) {
-    	
-    	if(filaInstrucoes.get(id) == null) {
-    		TiposInstrucoes tipos;
-    		tipos = new TiposInstrucoes();
-    		filaInstrucoes.add(id, tipos);
-    	}
-    	filaInstrucoes.get(id).getTiposInstrucoes().add(instrucao);	
-    	
-    	//DEBUG
-    	System.out.println("Adicionando instrução");
-    	System.out.println("id: " + id);
-    	System.out.println("instrução: " + instrucao);
-    	System.out.println("fila de instrucoes na posicao " + id + " tem o tamanho: " + filaInstrucoes.get(id).getTiposInstrucoes().size());
+        filaInstrucoes.get(id).add(instrucao);
     }
 
     public void mostrar() {
@@ -62,7 +35,7 @@ class Instrucoes {
 
         System.out.print("Instruções -> ");
         for(int j = 0; j < numeroInstrucoes; j ++) {
-	        for(String i: filaInstrucoes.get(j).getTiposInstrucoes()) {
+	        for(String i: filaInstrucoes.get(j)) {
 	        	System.out.print(i + " ");
 	        }
         }

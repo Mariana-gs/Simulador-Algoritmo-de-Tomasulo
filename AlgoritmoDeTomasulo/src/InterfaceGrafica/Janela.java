@@ -124,12 +124,12 @@ public class Janela {
 					
 					table1.setModel(new DefaultTableModel(
 		        			new Object[][] { // ERRO AQUI
-		        				{Simulador.filaInstrucoes.get(0).getTiposInstrucoes().get(0), null, null, null},
-		        				{Simulador.filaInstrucoes.get(0).getTiposInstrucoes().get(1), null, null, null},
-		        				{Simulador.filaInstrucoes.get(1).getTiposInstrucoes().get(0), null, null, null},
-		        				{Simulador.filaInstrucoes.get(2).getTiposInstrucoes().get(0), null, null, null},
-		        				{Simulador.filaInstrucoes.get(3).getTiposInstrucoes().get(0), null, null, null},
-		        				{Simulador.filaInstrucoes.get(4).getTiposInstrucoes().get(0), null, null, null},
+		        				{Simulador.filaInstrucoes.get(0).get(0), null, null, null},
+		        				{Simulador.filaInstrucoes.get(0).get(1), null, null, null},
+		        				{Simulador.filaInstrucoes.get(1).get(0), null, null, null},
+		        				{Simulador.filaInstrucoes.get(2).get(0), null, null, null},
+		        				{Simulador.filaInstrucoes.get(3).get(0), null, null, null},
+		        				{Simulador.filaInstrucoes.get(4).get(0), null, null, null},
 		        			},
 		        			new String[] {
 		        				"Instruction", "Issue", "Execute", "Write result"

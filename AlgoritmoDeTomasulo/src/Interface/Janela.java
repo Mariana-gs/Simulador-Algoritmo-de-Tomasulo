@@ -31,11 +31,15 @@ public class Janela {
 	private JTable table1;
 	private JTable table2;
 	private JTable table3;
+	private static Simulador simulador;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		simulador = new Simulador();
+		
 		try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -118,53 +122,21 @@ public class Janela {
 				
 				if (valor == JFileChooser.APPROVE_OPTION) {
 					File arquivoSelecionado = arquivo.getSelectedFile();
-					Simulador.path = arquivoSelecionado.getAbsolutePath();
-					Simulador.inicializarSimulador();
+					simulador.path = arquivoSelecionado.getAbsolutePath();
+					simulador.inicializarSimulador();
 					
 					
 					table1.setModel(new DefaultTableModel(
-		        			new Object[][] { 
-		        				{Simulador.filaInstrucoes.get(0).get(0), null, null, null},
-		        				{Simulador.filaInstrucoes.get(0).get(1), null, null, null},
-		        				{Simulador.filaInstrucoes.get(1).get(0), null, null, null},
-		        				{Simulador.filaInstrucoes.get(2).get(0), null, null, null},
-		        				{Simulador.filaInstrucoes.get(3).get(0), null, null, null},
-		        				{Simulador.filaInstrucoes.get(4).get(0), null, null, null},
-		        				null,
-		        				null,
-		        				null,
-		        				null,
+		        			new Object[][] {
+		        				{simulador.carregarTabela1[1].getInstruction(), simulador.carregarTabela1[1].getIssue(),  simulador.carregarTabela1[1].getExecute(), simulador.carregarTabela1[1].getWriteResult()},
+		        				{simulador.carregarTabela1[1].getInstruction(), simulador.carregarTabela1[1].getIssue(),  simulador.carregarTabela1[1].getExecute(), simulador.carregarTabela1[1].getWriteResult()},
+		        				{simulador.carregarTabela1[2].getInstruction(), simulador.carregarTabela1[2].getIssue(),  simulador.carregarTabela1[2].getExecute(), simulador.carregarTabela1[2].getWriteResult()},
+		        				{simulador.carregarTabela1[3].getInstruction(), simulador.carregarTabela1[3].getIssue(),  simulador.carregarTabela1[3].getExecute(), simulador.carregarTabela1[3].getWriteResult()},
+		        				{simulador.carregarTabela1[4].getInstruction(), simulador.carregarTabela1[4].getIssue(),  simulador.carregarTabela1[4].getExecute(), simulador.carregarTabela1[4].getWriteResult()},
+		        				{simulador.carregarTabela1[5].getInstruction(), simulador.carregarTabela1[5].getIssue(),  simulador.carregarTabela1[5].getExecute(), simulador.carregarTabela1[5].getWriteResult()},
 		        			},
 		        			new String[] {
 		        				"Instruction", "Issue", "Execute", "Write result"
-		        			}
-		        		));
-					
-					table2.setModel(new DefaultTableModel(
-		        			new Object[][] {
-		        				{Simulador.load[0].getName(), Simulador.load[0].getBussy(), Simulador.load[0].getOp(), Simulador.load[0].getVj(), Simulador.load[0].getVk(), Simulador.load[0].getQj(), Simulador.load[0].getQk(), Simulador.load[0].getA()},
-		        				{Simulador.load[1].getName(), Simulador.load[1].getBussy(), Simulador.load[1].getOp(), Simulador.load[1].getVj(), Simulador.load[1].getVk(), Simulador.load[1].getQj(), Simulador.load[1].getQk(), Simulador.load[1].getA()},
-		        				{Simulador.add[0].getName(), Simulador.add[0].getBussy(), Simulador.add[0].getOp(), Simulador.add[0].getVj(), Simulador.add[0].getVk(), Simulador.add[0].getQj(), Simulador.add[0].getQk(), Simulador.add[0].getA()},
-		        				{Simulador.add[1].getName(), Simulador.add[1].getBussy(), Simulador.add[1].getOp(), Simulador.add[1].getVj(), Simulador.add[1].getVk(), Simulador.add[1].getQj(), Simulador.add[1].getQk(), Simulador.add[1].getA()},
-		        				{Simulador.add[2].getName(), Simulador.add[2].getBussy(), Simulador.add[2].getOp(), Simulador.add[2].getVj(), Simulador.add[2].getVk(), Simulador.add[2].getQj(), Simulador.add[2].getQk(), Simulador.add[2].getA()},
-		        				{Simulador.mult[0].getName(), Simulador.mult[0].getBussy(), Simulador.mult[0].getOp(), Simulador.mult[0].getVj(), Simulador.mult[0].getVk(), Simulador.mult[0].getQj(), Simulador.mult[0].getQk(), Simulador.mult[0].getA()},
-		        				{Simulador.mult[1].getName(), Simulador.mult[1].getBussy(), Simulador.mult[1].getOp(), Simulador.mult[1].getVj(), Simulador.mult[1].getVk(), Simulador.mult[1].getQj(), Simulador.mult[1].getQk(), Simulador.mult[1].getA()},
-		        				null,
-		        				null,
-		        				null,
-		        			},
-		        			new String[] {
-		        				"Name", "Bussy", "Op", "Vj", "Vk", "Qj", "Qk", "A"
-		        			}
-		        		));
-					
-					table3.setModel(new DefaultTableModel(
-		        			new Object[][] { 
-		        				{Simulador.registradores.getF0(), Simulador.registradores.getF4(), Simulador.registradores.getF6(), Simulador.registradores.getF8(), 
-		        					Simulador.registradores.getF10(), Simulador.registradores.getF12(), Simulador.registradores.getF14(), Simulador.registradores.getF16()},
-		        			},
-		        			new String[] {
-		        				"Field", "F0", "F2", "F4", "F6", "F8", "F10", "F12", "F14", "F16"
 		        			}
 		        		));
 				}
@@ -226,7 +198,7 @@ public class Janela {
 		);
 		
 		table3 = new JTable();
-		table3.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		table3.setFont(new Font("Segoe UI", Font.PLAIN, 10));
 		table3.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null, null, null, null, null, null, null},
@@ -238,7 +210,7 @@ public class Janela {
 		scrollPane3.setViewportView(table3);
 		
 		table2 = new JTable();
-		table2.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		table2.setFont(new Font("Segoe UI", Font.PLAIN, 10));
 		table2.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null, null, null, null, null},

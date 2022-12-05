@@ -1,45 +1,39 @@
 package Interface;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 class Instrucoes {
     
-    public int numeroInstrucoes;
-    public int numeroTiposInstrucoes;
-    public static LinkedList<LinkedList<String>> filaInstrucoes;
-    
-    Instrucoes(int numeroInstrucoes, int numeroTiposInstrucoes) {
-        this.numeroInstrucoes = numeroInstrucoes;
-        this.numeroTiposInstrucoes = numeroTiposInstrucoes;
-        filaInstrucoes = new LinkedList<LinkedList<String>>();
-    }
-    
-    public static LinkedList<LinkedList<String>> getFilaInstrucoes() {
-    	return filaInstrucoes;
-    }
 
-    public void construirFilaInstrucoes() {
-        for (int i = 0; i <= numeroTiposInstrucoes; i ++) {
-        	filaInstrucoes.add(new LinkedList<String>());
-        }
-    }
-
-    public void addInstrucao(int id, String instrucao) {
-        filaInstrucoes.get(id).add(instrucao);
-    }
-
-    public void mostrar() {
-        System.out.println("\nINFORMAÇÕES");
-        System.out.println("\nNúmero de instruções -> " + numeroInstrucoes);
-        System.out.println("Número de tipos de instruções -> " + numeroTiposInstrucoes);
-
-        System.out.print("Instruções -> ");
-        for(int j = 0; j < numeroInstrucoes; j ++) {
-	        for(String i: filaInstrucoes.get(j)) {
-	        	System.out.print(i + " ");
+	 public List<String> tiposInstrucao;
+	 
+	 
+	 Instrucoes(){
+		 
+		 this.tiposInstrucao = new ArrayList<>();
+		 
+	 }
+	 
+	 Instrucoes(String instrucao){
+		 
+		 this.tiposInstrucao = new ArrayList<>();
+		 this.tiposInstrucao.add(instrucao);
+	 }
+	 
+	 public void inserir(String instrucao){
+		 this.tiposInstrucao.add(instrucao);
+	 }
+	 
+	 public void Mostrar() {
+		 System.out.println("Lista de Instrucoes: ");
+		 for(int i=0; i < tiposInstrucao.size(); i++){
+	            System.out.print("(" + tiposInstrucao.get(i) + ")");
 	        }
-        }
-        System.out.println();
-    }
-
+		 System.out.println("");
+		 
+	 }
+	 
+	 
 }

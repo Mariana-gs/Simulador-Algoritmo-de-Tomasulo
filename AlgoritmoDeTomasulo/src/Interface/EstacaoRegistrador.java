@@ -11,6 +11,11 @@ public class EstacaoRegistrador {
 	public String F12;
 	public String F14;
 	public String F16;
+	
+	EstacaoRegistrador() {
+		
+	}
+	
 	public String getF0() {
 		return F0;
 	}

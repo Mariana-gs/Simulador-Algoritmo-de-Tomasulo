@@ -2,17 +2,17 @@ package Interface;
 
 public class EstacaoInstrucao {
 	
-	public String instruction;
+	public Instrucao instruction;
 	public String issue;
 	public String execute;
 	public String writeResult;
 	
-	public String getInstruction() {
+	public Instrucao getInstruction() {
 		return instruction;
 	}
 	
-	public void setInstruction(String instruction) { 
-		this.instruction = instruction;	
+	public void setInstruction(Instrucao instrucao) { 
+		this.instruction = instrucao;	
 	}
 	
 	public String getIssue() {
